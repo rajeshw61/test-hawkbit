@@ -14,8 +14,7 @@ RUN set -x \
     && cd $HAWKBIT_HOME \
     && wget -O hawkbit-update-server.jar --no-verbose https://repo1.maven.org/maven2/org/eclipse/hawkbit/hawkbit-update-server/$HAWKBIT_VERSION/hawkbit-update-server-$HAWKBIT_VERSION.jar \
     && wget -O hawkbit-update-server.jar.asc --no-verbose https://repo1.maven.org/maven2/org/eclipse/hawkbit/hawkbit-update-server/$HAWKBIT_VERSION/hawkbit-update-server-$HAWKBIT_VERSION.jar.asc \
-    && gpg --batch --verify hawkbit-update-server.jar.asc hawkbit-update-server.jar \
-    && apk del build-dependencies
+    && gpg --batch --verify hawkbit-update-server.jar.asc hawkbit-update-server.jar
 
 VOLUME "$HAWKBIT_HOME/data"
 
