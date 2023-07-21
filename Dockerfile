@@ -1,8 +1,13 @@
-FROM openjdk:8u201-jre-alpine
+FROM adoptopenjdk/openjdk8:jre8u282-b08-alpine
 
-ENV HAWKBIT_VERSION=0.3.0M4 \
-    HAWKBIT_HOME=/opt/hawkbit
+ENV HAWKBIT_HOME=/opt/hawkbit
 
 EXPOSE 8080
 
-COPY KEY .
+COPY hawkbit-update-server.jar $HAWKBIT_HOME/
+
+VOLUME "$HAWKBIT_HOME/data"
+
+WORKDIR $HAWKBIT_HOME
+
+ENTRYPOINT ["java","-jar","hawkbit-update-server.jar","-Xms768m -Xmx768m -XX:MaxMetaspaceSize=250m -XX:MetaspaceSize=250m -Xss300K -XX:+UseG1GC -XX:+UseStringDeduplication -XX:+UseCompressedOops -XX:+HeapDumpOnOutOfMemoryError"]
